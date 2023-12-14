@@ -1,0 +1,23 @@
+name: Slack Notification
+
+on:
+  pull_request_target:
+    types: [opened, closed, reopened, edited, deleted]
+
+jobs:
+  notify_slack:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+    steps:
+    - name: Send Slack notification
+      uses: 8398a7/action-slack@v3
+      with:
+        github_base_url: https://oss.navercorp.com # Specify your GHE
+        status: ${{ job.status }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
