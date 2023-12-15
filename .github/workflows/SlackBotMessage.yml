@@ -1,7 +1,7 @@
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  test_notify:
+  test_ok:
     runs-on: ubuntu-latest
     name: Test the action on success
     steps:
@@ -13,7 +13,30 @@ jobs:
         uses: ./
         if: always()
         with:
-            job-status: ${{ job.status }}
-            slack-bot-token: ${{ secrets.SLACK_TOKEN }}
-            channel: slack-bot-test-test
-          
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          event: ${{ toJson(github.event) }}
+          head_ref: ${{ github.head_ref }}
+          base_ref: ${{ github.base_ref }}
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_TOKEN }}
+          channel: slack-bot-test-test
+
+  test_ko:
+    runs-on: ubuntu-latest
+    name: Test the action on failure
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Failure
+        run: exit 1
+      - name: Action
+        uses: ./
+        if: always()
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          event: ${{ toJson(github.event) }}
+          head_ref: ${{ github.head_ref }}
+          base_ref: ${{ github.base_ref }}
+          job-status: ${{ job.status }}
+          slack-bot-token: ${{ secrets.SLACK_TOKEN }}
+          channel: slack-bot-test-test
