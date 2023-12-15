@@ -1,7 +1,8 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const { octokit } = require("./github.js");
-const fetch = require("node-fetch");
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const getPullRequest = async (password, repo, pull_number) => {
   const github = octokit(password);
