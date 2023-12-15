@@ -10,7 +10,7 @@ jobs:
       - name: Success
         run: exit 0
       - name: Action
-        uses: ./action.yml
+        uses: ./
         if: always()
         with:
             job-status: ${{ job.status }}
