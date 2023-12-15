@@ -1,17 +1,15 @@
 {
-  "name": "test-slack-bot",
+  "name": "github-actions-slack-job-status",
   "version": "1.0.0",
-  "description": "test-slack-bot",
+  "description": "Github action to notify job status to slack",
+  "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "test": "ncc build index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.10.1",
-    "@actions/github": "^6.0.0",
-    "node-fetch": "^3.3.2"
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "node-fetch": "^2.6.1"
   }
 }
