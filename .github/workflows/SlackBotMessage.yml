@@ -13,7 +13,7 @@ jobs:
         uses: ./
         if: always()
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.SLACK_GITHUB_TOKEN }}
           event: ${{ toJson(github.event) }}
           head_ref: ${{ github.head_ref }}
           base_ref: ${{ github.base_ref }}
@@ -33,7 +33,7 @@ jobs:
         uses: ./
         if: always()
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.SLACK_GITHUB_TOKEN }}
           event: ${{ toJson(github.event) }}
           head_ref: ${{ github.head_ref }}
           base_ref: ${{ github.base_ref }}
