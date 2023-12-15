@@ -13,9 +13,7 @@ jobs:
         uses: ./ 
         if: always()
         with:
-          github_base_url: https://oss.navercorp.com # Specify your GHE
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            job-status: ${{ job.status }}
+            slack-bot-token: ${{ secrets.SLACK_TOKEN }}
+            channel: slack-bot-test-test
           
