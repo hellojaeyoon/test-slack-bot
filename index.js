@@ -1,40 +1,36 @@
-const core = require("@actions/core");
 const fetch = require("node-fetch");
 
-(aysnc () => {
-  try {
-    const payload = {
-      channel: `${core.getInput("channel")}`,
-      attachments: [
-        {
-          color: status === "success" ? "#2e993e" : status === "failure" ? "#bd0f26" : "#d29d0c",
-          blocks: [
-            {
-              type: "section",
-              text: {
-                type: "mrkdwn",
-                text: `Github Action: *${status === "success" ? "SUCCESS" : status === "failure" ? "FAILURE" : "CANCELLED"}*`,
-              },
-            },
-          ],
-        },
-      ],
-    };
+const SLACK_BOT_TOKEN = "Valid Slack App Token";
 
-    const rest = await fetch("https://slack.com/api/chat.postMessage", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Content-Length": payload.length,
-        Authorization: `Bearer ${core.getInput("slack-bot-token")}`,
-        Accept: "application/json",
-      },
-    });
+const payload = {
+  channel: "random-channel",
+  attachments: [
+    {
+      title: "My first Slack Message",
+      text: "Random example message text",
+      author_name: "alejandrogonzalez3",
+      color: "#00FF00",
+    },
+  ],
+};
+
+fetch("https://slack.com/api/chat.postMessage", {
+  method: "POST",
+  body: JSON.stringify(payload),
+  headers: {
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": payload.length,
+    Authorization: `Bearer ${SLACK_BOT_TOKEN}`,
+    Accept: "application/json",
+  },
+})
+  .then((res) => {
     if (!res.ok) {
       throw new Error(`Server error ${res.status}`);
     }
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-})();
+
+    return res.json();
+  })
+  .catch((error) => {
+    console.log(error);
+  });
