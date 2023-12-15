@@ -1,7 +1,7 @@
 const core = require("@actions/core");
 const fetch = require("node-fetch");
 
-aysnc () => {
+(aysnc () => {
   try {
     const payload = {
       channel: `${core.getInput("channel")}`,
@@ -37,4 +37,4 @@ aysnc () => {
   } catch (error) {
     core.setFailed(error.message);
   }
-}();
+})();
